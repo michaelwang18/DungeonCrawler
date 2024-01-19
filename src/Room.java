@@ -9,12 +9,9 @@ public class Room {
     private Boolean entered;
     private String roomAction;
 
-
-
-
-
-
-
+    public String getRoomAction() {
+        return roomAction;
+    }
 
     public Room (Game game){
         this.game = game;
@@ -54,12 +51,6 @@ public class Room {
     }
 
 
-
-
-
-
-
-
     public String display(){
         if (!seen){
             return "\uD83D\uDD33";
@@ -78,6 +69,7 @@ public class Room {
                 if (!used) {
                     System.out.println("You got a key!");
                     System.out.println("Perhaps you should find the exit.");
+                    game.getItems()[2].gain();
                 } else {
                     System.out.println("You got a key!");
                     System.out.println("(In your bag since you took it from the room already, idiot.)");
@@ -97,8 +89,9 @@ public class Room {
 
         if (type.equals("exit")){
             if (!used) {
-                if (game.getKey()){
+                if (game.getItems()[2].getCount() > 0){
                     game.escapeFloor();
+                    game.getItems()[2].use();
                 }
                 System.out.println("You feel rejuvenated");
                 System.out.println("However it doesn't feel safe to sleep here anymore");
@@ -127,7 +120,7 @@ public class Room {
         if (this.type.equals("trade")){
             emoji = "\uD83D\uDCB0";
         }
-        if (this.type.equals("gamble")){
+        if (this.type.equals("item")){
             emoji = "\uD83C\uDFB2";
         }
         if (this.type.equals("fight")){

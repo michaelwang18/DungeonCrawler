@@ -132,6 +132,22 @@ public class Entity {
         return enemyList;
     }
 
+    public static Item potion(){
+        Item item = new Item("Potion","Heals for one third of your health", 0);
+        return item;
+    }
+    public static Item orbOfVision(){
+        Item item = new Item("Potion","Grants vision of all of the rooms", 0);
+        return item;
+    }
+    public static Item key(){
+        Item item = new Item("Key","Opens the door to the next entrance", 0);
+        return item;
+    }
+
+
+
+
 
     //GOOD PEOPLE PROLLY JUST HERE TO SEPERATE LINE CUZ YOU MESSY---------------------------------------------------------------------------------
 

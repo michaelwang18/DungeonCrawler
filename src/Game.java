@@ -10,34 +10,38 @@ public class Game {
     private int playerY;
     private int playerX;
     private boolean floorEscaped;
-    private boolean hasKey;
+    private Item[] items = {Entity.potion(),Entity.orbOfVision(),Entity.key()};
 
-
+    public Item[] getItems() {
+        return items;
+    }
 
     public Game() {
         gridSize = 3;
         floorLevel = 0;
         alive = true;
         createFloor();
+        while (floor == null){}
 
-        //DISPLAYS THE MAP
-        while (alive) {
+        while (alive) { //LOOPING FLOORS
             createFloor();
             floorLevel++;
             floorEscaped = false;
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "WELCOME TO FLOOR" + floorLevel + "!\n\n" +Color.RESET);
-            while (!floorEscaped) {
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "WELCOME TO FLOOR " + floorLevel + "!\n\n" +Color.RESET);
 
-                viewmap();
+            while (!floorEscaped && alive) { //LOOPING ACTION IN THE FLOOR
+
+                viewMap();
                 // PLAYER TURN/ACTION
-                System.out.println("What would you like to do? \n1)Move to different room\n2)Use an item");
+                System.out.println("What would you like to do? \n1)Move to different room\n2)Use an item\n" + floor[playerY][playerX].getRoomAction());
                 int action = Utility.tryInput(scan.nextLine(), 3);
                 switch (action) {
                     case 1:
                         playerMovement();
                         break;
                     case 2:
-                        //View Items
+                        viewItems();
+                        System.out.println("whay");
                         break;
                     case 3:
                         floor[playerY][playerX].roomEvent();
@@ -54,7 +58,7 @@ public class Game {
 
     private void createFloor() {
         scan = new Scanner(System.in);
-        String[] possibleRooms = {"empty", "empty", "empty", "fight", "trade", "rest", "fight", "gamble"};
+        String[] possibleRooms = {"empty", "empty", "empty", "fight", "trade", "rest", "fight", "empty"};
 
         String playerLocation = ((int) (Math.random() * gridSize)) + "," + ((int) (Math.random() * gridSize));
         playerY = Integer.parseInt(playerLocation.substring(0, 1));
@@ -72,8 +76,6 @@ public class Game {
             System.out.println("");
         }
 
-
-        while (true) {
             //create boss
             int bossX = playerY;
             int bossY = playerX;
@@ -96,17 +98,34 @@ public class Game {
             floor[bossX][bossY] = new Room("boss",this);
             floor[keyX][keyY] = new Room("key",this);
             floor[exitX][exitY] = new Room("exit",this);
-        }
+
+            floor[playerY][playerX] = new Room("empty",this);
+            floor[playerY][playerX].playerEnter();
 
     }
 
-    private void viewmap(){
+    private void viewMap(){
         for (int i = 0; i < gridSize; i++) { // row
             for (int j = 0; j < gridSize; j++) { // column
                 //floor[i][j].see();
                 System.out.print(floor[i][j].display() + " ");
             }
             System.out.println("");
+        }
+    }
+
+    private void viewItems(){
+        Boolean hasItem = false;
+        int count = 0;
+        for (Item item: items){
+            if (item.getCount() > 0){
+                System.out.println((count+1) + ")" + item.getName() + Color.YELLOW_BOLD_BRIGHT + item.getCount() + "x\n" + Color.WHITE_BOLD + item.getDescription() );
+                hasItem = true;
+            }
+            count++;
+        }
+        if (!hasItem){
+            System.out.println("You have no items currently,\npoor.");
         }
     }
 
@@ -152,13 +171,6 @@ public class Game {
         floorEscaped = true;
     }
 
-    public void setKey(boolean hasKey) {
-        this.hasKey = hasKey;
-    }
-
-    public boolean getKey() {
-       return hasKey;
-    }
 }//END
 
 
