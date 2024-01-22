@@ -7,6 +7,7 @@ public class Game {
     private int floorLevel;
     private int gridSize;
     private Room[][] floor;
+    private Character playerChar;
     private int playerY;
     private int playerX;
     private boolean floorEscaped;
@@ -16,39 +17,56 @@ public class Game {
         return items;
     }
 
+    public Character getPlayerChar() {
+        return playerChar;
+    }
+
     public Game() {
-        gridSize = 3;
+        scan = new Scanner(System.in);
+        gridSize = 4;
         floorLevel = 0;
         alive = true;
-        createFloor();
-        while (floor == null){}
+        playerChar = Entity.knight(1);
+
 
         while (alive) { //LOOPING FLOORS
             createFloor();
             floorLevel++;
             floorEscaped = false;
             System.out.println(Color.WHITE_BOLD_BRIGHT + "WELCOME TO FLOOR " + floorLevel + "!\n\n" +Color.RESET);
+            System.out.println("---------------------------------------------------------------------------");
 
             while (!floorEscaped && alive) { //LOOPING ACTION IN THE FLOOR
 
                 viewMap();
-                // PLAYER TURN/ACTION
-                System.out.println("What would you like to do? \n1)Move to different room\n2)Use an item\n" + floor[playerY][playerX].getRoomAction());
-                int action = Utility.tryInput(scan.nextLine(), 3);
-                switch (action) {
-                    case 1:
-                        playerMovement();
-                        break;
-                    case 2:
-                        viewItems();
-                        System.out.println("whay");
-                        break;
-                    case 3:
-                        floor[playerY][playerX].roomEvent();
-                        break;
-
-
+                System.out.println("\nITEMS] ");
+                for (Item item: items){
+                    if (item.getCount() > 0){
+                        System.out.print(item.getName() + " " + Color.YELLOW_BOLD_BRIGHT + item.getCount() + "x" + Color.RESET);
+                    }
                 }
+                // PLAYER TURN/ACTION
+                System.out.println("\nWhat would you like to do? \n(W,A,S,D) Move to different room\n1) Use an item\n2) " + floor[playerY][playerX].getRoomAction());
+                System.out.println();
+                String resp = scan.nextLine();
+                System.out.println("\n\n\n\n");
+                if (resp.toLowerCase().equals("w")||resp.toLowerCase().equals("a")||resp.toLowerCase().equals("s")||resp.toLowerCase().equals("d")){
+                   playerMovement(resp.toLowerCase());
+                } else {
+                    int action = Utility.tryInput(resp, 2);
+                    switch (action) {
+                        case 1:
+                            viewItems();
+                            System.out.println("what would you like to use?");
+                            break;
+                        case 2:
+                            floor[playerY][playerX].roomEvent();
+                            break;
+                    }
+                }
+
+
+
 
             }
 
@@ -57,7 +75,6 @@ public class Game {
     }
 
     private void createFloor() {
-        scan = new Scanner(System.in);
         String[] possibleRooms = {"empty", "empty", "empty", "fight", "trade", "rest", "fight", "empty"};
 
         String playerLocation = ((int) (Math.random() * gridSize)) + "," + ((int) (Math.random() * gridSize));
@@ -65,16 +82,15 @@ public class Game {
         playerX = Integer.parseInt(playerLocation.substring(2));
         System.out.println("You are at " + (playerY + 1) + "," + (playerX + 1));
 
-        Room[][] floor = new Room[gridSize][gridSize]; // 3 rows, 4 columns
+        floor = new Room[gridSize][gridSize]; // 3 rows, 4 columns
         for (int i = 0; i < gridSize; i++) { // row
             for (int j = 0; j < gridSize; j++) { // column
                 if (floor[i][j] == null) {
                     floor[i][j] = new Room(possibleRooms[(int) (Math.random() * 8)], this);  //COLORING
                 }
-                System.out.print(floor[i][j].display() + "  ");
             }
-            System.out.println("");
         }
+
 
             //create boss
             int bossX = playerY;
@@ -116,22 +132,28 @@ public class Game {
 
     private void viewItems(){
         Boolean hasItem = false;
-        int count = 0;
+        Item[] haveList = new Item[3];
+        int have = 0;
         for (Item item: items){
             if (item.getCount() > 0){
-                System.out.println((count+1) + ")" + item.getName() + Color.YELLOW_BOLD_BRIGHT + item.getCount() + "x\n" + Color.WHITE_BOLD + item.getDescription() );
+                System.out.println((have+1) + ")" + item.getName() + Color.YELLOW_BOLD_BRIGHT + item.getCount() + "x\n" + Color.WHITE_BOLD + item.getDescription() + Color.RESET );
                 hasItem = true;
+                haveList[have] = item;
             }
-            count++;
         }
         if (!hasItem){
-            System.out.println("You have no items currently,\npoor.");
+            System.out.println("You have no items currently,\npoor...");
+        } else {
+            System.out.println("What item would do you like to use?");
+            Item using = haveList[Utility.tryInput((scan.nextLine()),haveList.length-1) - 1];
+            if (using.getName().equals("Key")){
+                System.out.println(".. what you gonna do with it? eat it?");
+            }
+            //System.out.println("you used a " +  haveList[Utility.tryInput(scan.nextLine(),haveList.length-1)] + " and have " + haveList[Utility.tryInput(scan.nextLine(),haveList.length-1)].getCount() + "Left");
         }
     }
 
-    private void playerMovement(){
-        System.out.println("\nEnter Move");
-        String resp = scan.nextLine().toLowerCase();
+    private void playerMovement(String resp){
         floor[playerY][playerX].playerLeave();
         if (resp.equals("w")) {
             if (!((playerY - 1) < 0)) {

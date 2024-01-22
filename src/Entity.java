@@ -79,6 +79,14 @@ public class Entity {
         return enemy;
     }
 
+    public static Character knight(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
+        int health = (int) Math.round(250* scaling + 50); //Hp
+        int attack = (int) Math.round(20 * scaling + 15);
+        int defense = (int) Math.round(15 * scaling + 10);
+        Character enemy = new Character("Knight", health, attack, defense);
+        return enemy;
+    }
+
 
 
 
