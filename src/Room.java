@@ -35,9 +35,13 @@ public class Room {
         seen = true;
         entered = true;
         playerAT = true;
+        Character enemy = Entity.storyEnemy(1)[(int) (Math.random()*10)];
+        if (type.equals("boss")){
+            enemy = Entity.dragon(1);
+        }
         if (type.equals("fight") && !used||type.equals("boss") && !used){
             System.out.println("Epic battle occured");
-            Battle battle = new Battle(game.getPlayerChar(),Entity.goblin(1));
+            Battle battle = new Battle(game.getPlayerChar(),enemy);
             battle.start();
             used = true;
         }
@@ -81,6 +85,7 @@ public class Room {
 
         if (type.equals("rest")){
             if (!used) {
+                game.getPlayerChar().setHealth(game.getPlayerChar().getMaxHealth());
                 System.out.println("You feel rejuvenated");
                 System.out.println("However it doesn't feel safe to sleep here anymore");
                 used = true;

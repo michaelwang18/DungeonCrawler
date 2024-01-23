@@ -49,9 +49,11 @@ public class Battle {
         }
 
 
-        if (!player.alive){
+        if (player.alive){
+            System.out.println("You win the encounter");
             return true;
         } else if (!enemy.alive){
+            System.out.println("unfortunate end to your journey");
             return false;
         }
         return true;

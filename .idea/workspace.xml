@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87fe3fc7-c566-40c2-b1f6-68550a91fc9a" name="Changes" comment="Setting up Rooms and adjusting Char Class">
-      <change afterPath="$PROJECT_DIR$/src/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="87fe3fc7-c566-40c2-b1f6-68550a91fc9a" name="Changes" comment="Setting up Rooms and adjust ing Char Class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
@@ -56,6 +55,19 @@
       <option name="presentableId" value="Default" />
       <updated>1704680671443</updated>
     </task>
+    <task id="LOCAL-00001" summary="Setting up Rooms and adjust ing Char Class">
+      <option name="closed" value="true" />
+      <created>1705927234625</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1705927234625</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Setting up Rooms and adjust ing Char Class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Setting up Rooms and adjust ing Char Class" />
   </component>
 </project>

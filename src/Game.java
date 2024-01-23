@@ -29,14 +29,14 @@ public class Game {
         playerChar = Entity.knight(1);
 
 
-        while (alive) { //LOOPING FLOORS
+        while (playerChar.alive) { //LOOPING FLOORS
             createFloor();
             floorLevel++;
             floorEscaped = false;
             System.out.println(Color.WHITE_BOLD_BRIGHT + "WELCOME TO FLOOR " + floorLevel + "!\n\n" +Color.RESET);
             System.out.println("---------------------------------------------------------------------------");
 
-            while (!floorEscaped && alive) { //LOOPING ACTION IN THE FLOOR
+            while (!floorEscaped && playerChar.alive) { //LOOPING ACTION IN THE FLOOR
 
                 viewMap();
                 System.out.println("\nITEMS] ");
@@ -72,10 +72,11 @@ public class Game {
 
 
         }
+        System.out.println("bye bye!");
     }
 
     private void createFloor() {
-        String[] possibleRooms = {"empty", "empty", "empty", "fight", "trade", "rest", "fight", "empty"};
+        String[] possibleRooms = {"empty", "empty", "empty", "fight", "rest", "rest", "fight", "fight"};
 
         String playerLocation = ((int) (Math.random() * gridSize)) + "," + ((int) (Math.random() * gridSize));
         playerY = Integer.parseInt(playerLocation.substring(0, 1));

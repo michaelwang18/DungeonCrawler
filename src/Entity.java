@@ -6,13 +6,13 @@ public class Entity {
     public static Character goblin(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
         int health = (int) Math.round(100 * scaling); //Hp
         int attack = (int) Math.round(20 * scaling + 20);
-        int defense = (int) Math.round(15 * scaling);
+        int defense = (int) Math.round(5 * scaling);
         Character enemy = new Character("Goblin", health, attack, defense);
         return enemy;
     }
 
     public static Character orge(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
-        int health = (int) Math.round(350 * scaling); //Hp
+        int health = (int) Math.round(200 * scaling); //Hp
         int attack = (int) Math.round(35 * scaling + 15);
         int defense = (int) Math.round(5 * scaling);
         Character enemy = new Character("Orge", health, attack, defense);
@@ -20,7 +20,7 @@ public class Entity {
     }
 
     public static Character golem(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
-        int health = (int) Math.round(200 * scaling + 50); //Hp
+        int health = (int) Math.round(150 * scaling + 50); //Hp
         int attack = (int) Math.round(50 * scaling + 15);
         int defense = (int) Math.round(30 * scaling);
         Character enemy = new Character("Golem", health, attack, defense);
@@ -31,15 +31,15 @@ public class Entity {
     public static Character skeleton(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
         int health = (int) Math.round(120 * scaling); //Hp
         int attack = (int) Math.round(35 * scaling + 25);
-        int defense = (int) Math.round(5 * scaling);
+        int defense = (int) Math.round(0 * scaling);
         Character enemy = new Character("Skeleton", health, attack, defense);
         return enemy;
     }
 
     public static Character dragon(double scaling){ // 1.1 would be 10% scaling, 2.7 would be 170% scaling
-        int health = (int) Math.round(200 * scaling + 100); //Hp
+        int health = (int) Math.round(250 * scaling + 100); //Hp
         int attack = (int) Math.round(25 * scaling + 20);
-        int defense = (int) Math.round(30 * scaling + 10);
+        int defense = (int) Math.round(5 * scaling + 10);
         Character enemy = new Character("Dragon", health, attack, defense);
         return enemy;
     }
